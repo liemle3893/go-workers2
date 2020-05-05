@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/digitalocean/go-workers2/storage"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v7"
 )
 
 // Options contains the set of configuration options for a manager and/or producer

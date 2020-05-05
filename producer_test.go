@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/digitalocean/go-workers2/storage"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v7"
 	"github.com/stretchr/testify/assert"
 )
 

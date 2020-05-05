@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/bitly/go-simplejson"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v7"
 )
 
 type redisStore struct {
@@ -48,7 +48,7 @@ func (r *redisStore) DequeueMessage(queue string, inprogressQueue string, timeou
 }
 
 func (r *redisStore) EnqueueMessage(queue string, priority float64, message string) error {
-	_, err := r.client.ZAdd(r.getQueueName(queue), redis.Z{
+	_, err := r.client.ZAdd(r.getQueueName(queue), &redis.Z{
 		Score:  priority,
 		Member: message,
 	}).Result()
@@ -57,7 +57,7 @@ func (r *redisStore) EnqueueMessage(queue string, priority float64, message stri
 }
 
 func (r *redisStore) EnqueueScheduledMessage(priority float64, message string) error {
-	_, err := r.client.ZAdd(r.namespace+ScheduledJobsKey, redis.Z{
+	_, err := r.client.ZAdd(r.namespace+ScheduledJobsKey, &redis.Z{
 		Score:  priority,
 		Member: message,
 	}).Result()
@@ -68,7 +68,7 @@ func (r *redisStore) EnqueueScheduledMessage(priority float64, message string) e
 func (r *redisStore) DequeueScheduledMessage(priority float64) (string, error) {
 	key := r.namespace + ScheduledJobsKey
 
-	messages, err := r.client.ZRangeByScore(key, redis.ZRangeBy{
+	messages, err := r.client.ZRangeByScore(key, &redis.ZRangeBy{
 		Min:    "-inf",
 		Max:    strconv.FormatFloat(priority, 'f', -1, 64),
 		Offset: 0,
@@ -96,7 +96,7 @@ func (r *redisStore) DequeueScheduledMessage(priority float64) (string, error) {
 }
 
 func (r *redisStore) EnqueueRetriedMessage(priority float64, message string) error {
-	_, err := r.client.ZAdd(r.namespace+RetryKey, redis.Z{
+	_, err := r.client.ZAdd(r.namespace+RetryKey, &redis.Z{
 		Score:  priority,
 		Member: message,
 	}).Result()
@@ -107,7 +107,7 @@ func (r *redisStore) EnqueueRetriedMessage(priority float64, message string) err
 func (r *redisStore) DequeueRetriedMessage(priority float64) (string, error) {
 	key := r.namespace + RetryKey
 
-	messages, err := r.client.ZRangeByScore(key, redis.ZRangeBy{
+	messages, err := r.client.ZRangeByScore(key, &redis.ZRangeBy{
 		Min:    "-inf",
 		Max:    strconv.FormatFloat(priority, 'f', -1, 64),
 		Offset: 0,

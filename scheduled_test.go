@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/digitalocean/go-workers2/storage"
-	"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v7"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -22,9 +22,9 @@ func TestScheduled(t *testing.T) {
 	message2, _ := NewMsg("{\"queue\":\"myqueue\",\"foo\":\"bar2\"}")
 	message3, _ := NewMsg("{\"queue\":\"default\",\"foo\":\"bar3\"}")
 
-	rc.ZAdd(retryQueue(opts.Namespace), redis.Z{Score: now - 60.0, Member: message1.ToJson()}).Result()
-	rc.ZAdd(retryQueue(opts.Namespace), redis.Z{Score: now - 10.0, Member: message2.ToJson()}).Result()
-	rc.ZAdd(retryQueue(opts.Namespace), redis.Z{Score: now + 60.0, Member: message3.ToJson()}).Result()
+	rc.ZAdd(retryQueue(opts.Namespace), &redis.Z{Score: now - 60.0, Member: message1.ToJson()}).Result()
+	rc.ZAdd(retryQueue(opts.Namespace), &redis.Z{Score: now - 10.0, Member: message2.ToJson()}).Result()
+	rc.ZAdd(retryQueue(opts.Namespace), &redis.Z{Score: now + 60.0, Member: message3.ToJson()}).Result()
 
 	scheduled.poll()
 
