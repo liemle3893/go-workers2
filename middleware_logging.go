@@ -18,7 +18,7 @@ func LogMiddleware(queue string, mgr *Manager, next JobFunc) JobFunc {
 
 		start := time.Now()
 		Logger.Println(prefix, "start")
-		Logger.Println(prefix, "args:", message.Args().ToJson())
+		//Logger.Println(prefix, "args:", message.Args().ToJson())
 
 		defer func() {
 			if e := recover(); e != nil {
