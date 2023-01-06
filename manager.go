@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-redis/redis/v7"
 	"github.com/google/uuid"
-	"github.com/minhpq331/go-workers2/storage"
+	"github.com/thucnq/go-workers2/storage"
 )
 
 // Manager coordinates work, workers, and signaling needed for job processing

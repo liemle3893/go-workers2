@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/minhpq331/go-workers2/storage"
+	"github.com/thucnq/go-workers2/storage"
 )
 
 //Fetcher is an interface for managing work messages

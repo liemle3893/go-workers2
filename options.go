@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/go-redis/redis/v7"
-	"github.com/minhpq331/go-workers2/storage"
+	"github.com/thucnq/go-workers2/storage"
 )
 
 // Options contains the set of configuration options for a manager and/or producer
