@@ -35,7 +35,7 @@ func (r *redisStore) DequeueMessage(queue string, inprogressQueue string, timeou
 		// If redis returns null, the queue is empty.
 		// Just ignore empty queue errors; print all other errors.
 		if err != redis.Nil {
-			r.logger.Println("ERR: ", queue, err)
+			log.Println("ERR: ", queue, err)
 		} else {
 			err = NoMessage
 		}
