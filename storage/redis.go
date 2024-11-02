@@ -24,6 +24,7 @@ func NewRedisStore(namespace string, client *redis.Client) Store {
 	return &redisStore{
 		namespace: namespace,
 		client:    client,
+		logger:    log.Default(),
 	}
 }
 
